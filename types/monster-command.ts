@@ -42,6 +42,7 @@ export type SensorReading = UnknownRow & {
   soil_moisture_pct?: number;
   temperature?: number;
   temperature_f?: number;
+  ec?: number;
   humidity?: number;
   humidity_pct?: number;
   captured_at?: string;

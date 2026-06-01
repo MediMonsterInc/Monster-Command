@@ -27,8 +27,8 @@ export default async function PlantsPage() {
               </tr>
             </thead>
             <tbody>
-              {plants.data.map((plant) => (
-                <tr key={asText(plant.plant_id)}>
+              {plants.data.map((plant, index) => (
+                <tr key={asText(plant.id) || `${asText(plant.plant_id)}-${index}`}>
                   <td>
                     <Link className="monster-link" href={`/plants/${encodeURIComponent(asText(plant.plant_id))}`}>
                       {asText(plant.plant_id)}

@@ -20,7 +20,7 @@ export default async function SensorsPage() {
   return (
     <>
       <PageHeader eyebrow="Sensor Board" title="Sensors" description="WH52 and normalized sensor readings shown as decision-support data only." />
-      <DataPanel title="Latest Sensor Readings" subtitle="moisture, temperature, humidity, captured_at" empty={uniqueSensors.length === 0}>
+      <DataPanel title="Latest Sensor Readings" subtitle="moisture, temperature, EC, captured_at" empty={uniqueSensors.length === 0}>
         <SourceNotice state={sensors} table="sensor_readings" />
         <div className="mt-3 overflow-x-auto">
           <table className="monster-table">
@@ -30,7 +30,7 @@ export default async function SensorsPage() {
                 <th>Plant ID</th>
                 <th>Moisture</th>
                 <th>Temperature</th>
-                <th>Humidity</th>
+                <th>EC</th>
                 <th>Captured</th>
               </tr>
             </thead>
@@ -42,7 +42,7 @@ export default async function SensorsPage() {
                     <td>{asText(reading.plant_id)}</td>
                     <td>{asText(reading.moisture ?? reading.soil_moisture_pct, "n/a")}</td>
                     <td>{asText(reading.temperature ?? reading.temperature_f, "n/a")}</td>
-                    <td>{asText(reading.humidity ?? reading.humidity_pct, "n/a")}</td>
+                    <td>{asText(reading.ec, "n/a")}</td>
                     <td>{formatDateTime(reading.captured_at)}</td>
                   </tr>
                 ))

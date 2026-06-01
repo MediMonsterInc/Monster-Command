@@ -65,7 +65,7 @@ export const placeholderSensors: SensorReading[] = [
     plant_id: "R1.1CHLP",
     moisture: 36,
     temperature: 69.8,
-    humidity: 52,
+    ec: 1.2,
     captured_at: new Date().toISOString(),
   },
   {
@@ -73,7 +73,7 @@ export const placeholderSensors: SensorReading[] = [
     plant_id: "R1.1KM",
     moisture: 31,
     temperature: 70.4,
-    humidity: 51,
+    ec: 1.4,
     captured_at: new Date().toISOString(),
   },
   {
@@ -81,7 +81,7 @@ export const placeholderSensors: SensorReading[] = [
     plant_id: "R1.1CPOG-01",
     moisture: 38,
     temperature: 70.1,
-    humidity: 53,
+    ec: 1.1,
     captured_at: new Date().toISOString(),
   },
   {
@@ -89,7 +89,7 @@ export const placeholderSensors: SensorReading[] = [
     plant_id: "R1.1ZK-01",
     moisture: 34,
     temperature: 69.5,
-    humidity: 50,
+    ec: 1.5,
     captured_at: new Date().toISOString(),
   },
   {
@@ -97,7 +97,7 @@ export const placeholderSensors: SensorReading[] = [
     plant_id: "R1.1GS",
     moisture: 40,
     temperature: 70.2,
-    humidity: 54,
+    ec: 1.3,
     captured_at: new Date().toISOString(),
   },
 ];

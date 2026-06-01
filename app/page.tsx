@@ -58,8 +58,8 @@ export default async function DashboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {data.plants.data.map((plant) => (
-                  <tr key={asText(plant.plant_id)}>
+                {data.plants.data.map((plant, index) => (
+                  <tr key={asText(plant.id) || `${asText(plant.plant_id)}-${index}`}>
                     <td>
                       <Link className="monster-link" href={`/plants/${encodeURIComponent(asText(plant.plant_id))}`}>
                         {asText(plant.plant_id)}
@@ -76,7 +76,7 @@ export default async function DashboardPage() {
           </div>
         </DataPanel>
 
-        <DataPanel title="Latest Sensors" subtitle="moisture, temperature, humidity, captured_at" empty={uniqueSensors.length === 0}>
+        <DataPanel title="Latest Sensors" subtitle="moisture, temperature, EC, captured_at" empty={uniqueSensors.length === 0}>
           <SourceNotice state={data.sensors} table="sensor_readings" />
           <div className="mt-3 overflow-x-auto">
             <table className="monster-table">
@@ -85,7 +85,7 @@ export default async function DashboardPage() {
                   <th>Sensor</th>
                   <th>Moisture</th>
                   <th>Temp</th>
-                  <th>Humidity</th>
+                  <th>EC</th>
                   <th>Captured</th>
                 </tr>
               </thead>
@@ -95,7 +95,7 @@ export default async function DashboardPage() {
                     <td>{asText(reading.sensor_channel ?? reading.hardware_channel)}</td>
                     <td>{asText(reading.moisture ?? reading.soil_moisture_pct, "n/a")}</td>
                     <td>{asText(reading.temperature ?? reading.temperature_f, "n/a")}</td>
-                    <td>{asText(reading.humidity ?? reading.humidity_pct, "n/a")}</td>
+                    <td>{asText(reading.ec, "n/a")}</td>
                     <td>{formatDateTime(reading.captured_at)}</td>
                   </tr>
                 ))}
