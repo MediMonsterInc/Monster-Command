@@ -13,6 +13,16 @@ export default async function DashboardPage() {
   const cameraRows = [...data.cameraChannels.data, ...data.cameras.data];
   const openAlerts = data.alerts.data.filter((alert) => asText(alert.status, "").toLowerCase() !== "resolved").length;
 
+  // Deduplicate sensor readings by sensor_channel (keep latest per channel)
+  const sensorsByChannel = new Map<string, typeof data.sensors.data[0]>();
+  for (const reading of data.sensors.data) {
+    const channel = asText(reading.sensor_channel ?? reading.hardware_channel, "");
+    if (channel && !sensorsByChannel.has(channel)) {
+      sensorsByChannel.set(channel, reading);
+    }
+  }
+  const uniqueSensors = Array.from(sensorsByChannel.values());
+
   return (
     <>
       <PageHeader
@@ -28,7 +38,7 @@ export default async function DashboardPage() {
       <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         <MetricCard label="Plants" value={data.plants.data.length} detail={data.plants.source} />
         <MetricCard label="Cameras" value={cameraRows.length} detail={data.cameraChannels.source} />
-        <MetricCard label="Sensor Reads" value={data.sensors.data.length} detail={data.sensors.source} />
+        <MetricCard label="Sensor Reads" value={uniqueSensors.length} detail={data.sensors.source} />
         <MetricCard label="Scores" value={data.scores.data.length} detail={data.scores.source} />
         <MetricCard label="Open Alerts" value={openAlerts} detail={data.alerts.source} />
       </div>
@@ -48,7 +58,7 @@ export default async function DashboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {data.plants.data.slice(0, 8).map((plant) => (
+                {data.plants.data.map((plant) => (
                   <tr key={asText(plant.plant_id)}>
                     <td>
                       <Link className="monster-link" href={`/plants/${encodeURIComponent(asText(plant.plant_id))}`}>
@@ -66,7 +76,7 @@ export default async function DashboardPage() {
           </div>
         </DataPanel>
 
-        <DataPanel title="Latest Sensors" subtitle="moisture, temperature, humidity, captured_at" empty={data.sensors.data.length === 0}>
+        <DataPanel title="Latest Sensors" subtitle="moisture, temperature, humidity, captured_at" empty={uniqueSensors.length === 0}>
           <SourceNotice state={data.sensors} table="sensor_readings" />
           <div className="mt-3 overflow-x-auto">
             <table className="monster-table">
@@ -80,8 +90,8 @@ export default async function DashboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {data.sensors.data.slice(0, 8).map((reading, index) => (
-                  <tr key={`${asText(reading.sensor_channel ?? reading.hardware_channel)}-${index}`}>
+                {uniqueSensors.map((reading) => (
+                  <tr key={asText(reading.sensor_channel ?? reading.hardware_channel)}>
                     <td>{asText(reading.sensor_channel ?? reading.hardware_channel)}</td>
                     <td>{asText(reading.moisture ?? reading.soil_moisture_pct, "n/a")}</td>
                     <td>{asText(reading.temperature ?? reading.temperature_f, "n/a")}</td>
