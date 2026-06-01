@@ -31,6 +31,20 @@ export const placeholderPlants: Plant[] = [
     status: "active",
     sensor_channel: "WH52-CH3",
   },
+  {
+    plant_id: "R1.1ZK-01",
+    strain: "Zkittlez",
+    stage: "Flower W3",
+    status: "active",
+    sensor_channel: "WH52-CH4",
+  },
+  {
+    plant_id: "R1.1GS",
+    strain: "Glass Slipper",
+    stage: "Flower W3",
+    status: "active",
+    sensor_channel: "WH52-CH5",
+  },
 ];
 
 export const placeholderCameraChannels: CameraChannel[] = [
@@ -62,11 +76,38 @@ export const placeholderSensors: SensorReading[] = [
     humidity: 51,
     captured_at: new Date().toISOString(),
   },
+  {
+    sensor_channel: "WH52-CH3",
+    plant_id: "R1.1CPOG-01",
+    moisture: 38,
+    temperature: 70.1,
+    humidity: 53,
+    captured_at: new Date().toISOString(),
+  },
+  {
+    sensor_channel: "WH52-CH4",
+    plant_id: "R1.1ZK-01",
+    moisture: 34,
+    temperature: 69.5,
+    humidity: 50,
+    captured_at: new Date().toISOString(),
+  },
+  {
+    sensor_channel: "WH52-CH5",
+    plant_id: "R1.1GS",
+    moisture: 40,
+    temperature: 70.2,
+    humidity: 54,
+    captured_at: new Date().toISOString(),
+  },
 ];
 
 export const placeholderScores: Score[] = [
   { plant_id: "R1.1CHLP", stress_score: 12, breeding_score: 78, grow_score: 92, badge: "Best rhythm" },
   { plant_id: "R1.1KM", stress_score: 28, breeding_score: 71, grow_score: 86, badge: "Needs watch" },
+  { plant_id: "R1.1CPOG-01", stress_score: 15, breeding_score: 82, grow_score: 89, badge: "Stable" },
+  { plant_id: "R1.1ZK-01", stress_score: 18, breeding_score: 79, grow_score: 91, badge: "Strong" },
+  { plant_id: "R1.1GS", stress_score: 88, breeding_score: 92, grow_score: 84, badge: "Breeder Elite" },
 ];
 
 export const placeholderAlerts: Alert[] = [
