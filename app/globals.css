@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(156, 255, 0, 0.13), transparent 26%),
+    radial-gradient(circle at 84% 10%, rgba(167, 73, 255, 0.18), transparent 31%),
+    radial-gradient(circle at 50% 90%, rgba(0, 229, 255, 0.08), transparent 32%),
+    #060509;
+}
+
+@layer components {
+  .monster-table {
+    @apply w-full border-separate border-spacing-y-2 text-left text-sm;
+  }
+
+  .monster-table th {
+    @apply px-3 py-2 text-xs font-black uppercase tracking-normal text-zinc-500;
+  }
+
+  .monster-table td {
+    @apply border-y border-white/10 bg-white/[0.035] px-3 py-3 text-zinc-200 first:rounded-l-lg first:border-l last:rounded-r-lg last:border-r;
+  }
+
+  .monster-link {
+    @apply text-monster-green underline decoration-monster-green/30 underline-offset-4 hover:text-white;
+  }
+}
