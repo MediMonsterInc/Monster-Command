@@ -104,6 +104,14 @@ export async function getCameraStatus() {
   return readTable<CameraStatus>("camera_status", placeholderCameraStatus, { limit: 100 });
 }
 
+export async function getCameraSnapshots() {
+  return readTable<UnknownRow>("camera_snapshots", [], {
+    limit: 100,
+    orderBy: "captured_at",
+    ascending: false,
+  });
+}
+
 export async function getSensorReadings() {
   return readTable<SensorReading>("sensor_readings", placeholderSensors, {
     limit: 100,
@@ -124,6 +132,14 @@ export async function getAlerts() {
   return readTable<Alert>("alerts", placeholderAlerts, {
     limit: 100,
     orderBy: "created_at",
+    ascending: false,
+  });
+}
+
+export async function getIrrigationRecommendations() {
+  return readTable<UnknownRow>("irrigation_recommendations", [], {
+    limit: 100,
+    orderBy: "updated_at",
     ascending: false,
   });
 }
@@ -150,9 +166,11 @@ export async function getDashboardData(): Promise<DashboardData> {
     cameraChannels,
     cameras,
     cameraStatus,
+    cameraSnapshots,
     sensors,
     scores,
     alerts,
+    irrigationRecommendations,
     seedInventory,
     seedDrops,
     publicExports,
@@ -161,9 +179,11 @@ export async function getDashboardData(): Promise<DashboardData> {
     getCameraChannels(),
     getCameras(),
     getCameraStatus(),
+    getCameraSnapshots(),
     getSensorReadings(),
     getScores(),
     getAlerts(),
+    getIrrigationRecommendations(),
     getSeedInventory(),
     getSeedDrops(),
     getPublicExports(),
@@ -174,9 +194,11 @@ export async function getDashboardData(): Promise<DashboardData> {
     cameraChannels,
     cameras,
     cameraStatus,
+    cameraSnapshots,
     sensors,
     scores,
     alerts,
+    irrigationRecommendations,
     seedInventory,
     seedDrops,
     publicExports,
