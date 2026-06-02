@@ -93,9 +93,11 @@ export type DashboardData = {
   cameraChannels: QueryState<CameraChannel>;
   cameras: QueryState<CameraChannel>;
   cameraStatus: QueryState<CameraStatus>;
+  cameraSnapshots: QueryState<UnknownRow>;
   sensors: QueryState<SensorReading>;
   scores: QueryState<Score>;
   alerts: QueryState<Alert>;
+  irrigationRecommendations: QueryState<UnknownRow>;
   seedInventory: QueryState<SeedInventory>;
   seedDrops: QueryState<SeedDrop>;
   publicExports: QueryState<PublicExport>;
