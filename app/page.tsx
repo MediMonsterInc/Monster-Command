@@ -1,10 +1,14 @@
 import Link from "next/link";
 
+import { CameraPanel } from "@/components/CameraPanel";
 import { DataPanel } from "@/components/DataPanel";
+import { IrrigationPanel } from "@/components/IrrigationPanel";
 import { MetricCard } from "@/components/MetricCard";
 import { PageHeader } from "@/components/PageHeader";
+import { SoilSensorPanel } from "@/components/SoilSensorPanel";
 import { SourceNotice } from "@/components/SourceNotice";
 import { StatusPill } from "@/components/StatusPill";
+import { SystemHealthPanel } from "@/components/SystemHealthPanel";
 import { asText, formatDateTime } from "@/lib/format";
 import { getDashboardData } from "@/lib/supabase/queries";
 
@@ -43,6 +47,40 @@ export default async function DashboardPage() {
         <MetricCard label="Open Alerts" value={openAlerts} detail={data.alerts.source} />
       </div>
 
+      {/* System Health Panel */}
+      <div className="mb-6">
+        <SystemHealthPanel 
+          snapshots={data.cameraSnapshots.data}
+          sensors={data.sensors.data}
+          cameraStatus={data.cameraStatus.data}
+        />
+      </div>
+
+      {/* Live Panels Grid */}
+      <div className="grid gap-4 xl:grid-cols-2 mb-6">
+        {/* Camera Snapshots */}
+        <CameraPanel 
+          snapshots={data.cameraSnapshots.data}
+          channels={data.cameraChannels.data}
+          source={data.cameraSnapshots.source}
+        />
+
+        {/* Soil Sensors */}
+        <SoilSensorPanel 
+          sensors={data.sensors.data}
+          source={data.sensors.source}
+        />
+      </div>
+
+      {/* Irrigation Recommendations */}
+      <div className="mb-6">
+        <IrrigationPanel 
+          recommendations={data.irrigationRecommendations.data}
+          source={data.irrigationRecommendations.source}
+        />
+      </div>
+
+      {/* Original Detailed Tables */}
       <div className="grid gap-4 xl:grid-cols-2">
         <DataPanel title="Plants" subtitle="plant_id, strain, stage, status, sensor_channel" empty={data.plants.data.length === 0}>
           <SourceNotice state={data.plants} table="plants" />
